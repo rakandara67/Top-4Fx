@@ -1,70 +1,77 @@
 import streamlit as st
 
-st.set_page_config(page_title="Forex Strategy Dashboard", layout="wide")
+st.set_page_config(page_title="Forex Master Dashboard", layout="wide")
 
-# Səhifəni yeniləyəndə işarələrin silinməsi üçün "Session State" yaradırıq
-if 'check_reset' not in st.session_state:
-    st.session_state.check_reset = False
+# --- Reset Funksiyası ---
+if st.button("🔄 Bütün Analizi Sıfırla (Reset)"):
+    st.rerun()
 
-def reset_checks():
-    st.session_state.check_reset = True
+st.title("🏛️ Forex & Market Control Panel")
 
-st.title("📊 Forex Strategy Dashboard & Checklist")
-st.write("Mənbələri analiz edin və öz qeydlərinizi götürün.")
-
-# --- Checklist Bölməsi (Yuxarıda Sabit) ---
-st.subheader("📝 Şəxsi Analiz Qeydlərim")
+# --- 1. Checklist Paneli (Minimalist) ---
+st.subheader("📝 My Analysis Checklist")
 c1, c2, c3, c4 = st.columns(4)
-
 with c1:
-    st.markdown("**1. Forecast Poll**")
-    f_l = st.checkbox("Long", key="f1")
-    f_s = st.checkbox("Short", key="f2")
-
+    f = st.radio("Forecast Poll:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r1")
 with c2:
-    st.markdown("**2. Technical Summary**")
-    t_l = st.checkbox("Long", key="t1")
-    t_s = st.checkbox("Short", key="t2")
-
+    t = st.radio("Technical:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r2")
 with c3:
-    st.markdown("**3. Weekly Forecast**")
-    w_l = st.checkbox("Long", key="w1")
-    w_s = st.checkbox("Short", key="w2")
-
+    w = st.radio("Weekly:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r3")
 with c4:
-    st.markdown("**4. Sentiment**")
-    s_l = st.checkbox("Long", key="s1")
-    s_s = st.checkbox("Short", key="s2")
-
-# Silmə düyməsi
-if st.button("Seçimləri Təmizlə (Reset)"):
-    st.rerun() # Səhifəni yeniləyərək bütün checkbox-ları sıfırlayır
+    s = st.radio("Sentiment:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r4")
 
 st.markdown("---")
 
-# --- Mənbələr Bölməsi ---
+# --- 2. Technical Summary (Kateqoriyalı Tab-lar) ---
+st.subheader("📈 Technical Summary (Investing.com)")
 
-# 1. Forecast Poll (Mitrade)
-st.subheader("🎯 1. Forecast Poll")
-st.markdown("[👉 Mitrade Forecast Poll-a Get](https://www.mitrade.com/en/financial-tools/Forecast)")
+# Tab-lar vasitəsilə cədvəli qruplaşdırırıq (Siyahı uzanmır)
+tab1, tab2, tab3 = st.tabs(["💱 Forex (Majors)", "🌕 Emtia (Qızıl, Neft, Gümüş)", "📊 İndekslər (Nasdaq, S&P)"])
 
-# 2. Technical Summary (Investing.com Widget)
-st.subheader("📈 2. Technical Summary")
-st.components.v1.html("""
-    <iframe src="https://www.widgets.investing.com/live-currency-cross-rates?theme=darkTheme&pairs=1,2,3,4,5,7,8,9,10" 
-    width="100%" height="400" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>
-""", height=420)
+with tab1:
+    # Major cütlüklər
+    st.components.v1.html("""
+        <iframe src="https://www.widgets.investing.com/live-currency-cross-rates?theme=darkTheme&pairs=1,2,3,4,5,7,8,9" 
+        width="100%" height="350" frameborder="0" allowtransparency="true"></iframe>
+    """, height=360)
 
-# 3 & 4 Yan-yana
-col_left, col_right = st.columns(2)
+with tab2:
+    # Qızıl (1), Gümüş (2), WTI (8849), Brent (8833)
+    st.components.v1.html("""
+        <iframe src="https://www.widgets.investing.com/live-commodities?theme=darkTheme&pairs=8830,8836,8849,8833,8910" 
+        width="100%" height="350" frameborder="0" allowtransparency="true"></iframe>
+    """, height=360)
 
-with col_left:
-    st.subheader("📅 3. Weekly Forecast")
-    st.markdown("[👉 DailyForex Weekly Forecast](https://www.dailyforex.com/forex-technical-analysis/weekly-forex-forecast/page-1)")
-
-with col_right:
-    st.subheader("👥 4. Sentiment")
-    st.markdown("[👉 FXSSI Sentiment Ratio](https://fxssi.com/tools/current-ratio?filter=EURUSD)")
+with tab3:
+    # Nasdaq (14958), S&P 500 (166), DAX (172)
+    st.components.v1.html("""
+        <iframe src="https://www.widgets.investing.com/indices-summary?theme=darkTheme&pairs=166,14958,172,27" 
+        width="100%" height="350" frameborder="0" allowtransparency="true"></iframe>
+    """, height=360)
 
 st.write("---")
-st.caption("Qeyd: Checkbox-lar yalnız sizin vizual yaddaşınız üçündür, səhifəni yeniləsəniz sıfırlanacaq.")
+
+# --- 3. Digər Analiz Mənbələri ---
+col_l, col_r = st.columns(2)
+
+with col_l:
+    st.subheader("🎯 Fundamental & Weekly")
+    st.markdown("[🔗 Mitrade Forecast Poll](https://www.mitrade.com/en/financial-tools/Forecast)")
+    st.markdown("[🔗 DailyForex Weekly Forecast](https://www.dailyforex.com/forex-technical-analysis/weekly-forex-forecast/page-1)")
+
+with col_r:
+    st.subheader("👥 Sentiment & News")
+    st.markdown("[🔗 FXSSI Sentiment Ratio](https://fxssi.com/tools/current-ratio?filter=EURUSD)")
+    st.markdown("[🔗 FXStreet News](https://www.fxstreet.com/news)")
+
+# --- 4. Yekun Qərar İndikatoru ---
+st.write("---")
+if "🔴" in f+t+w+s and "🟢" not in f+t+w+s:
+    st.error("🚨 YEKUN QƏRAR: GÜCLÜ SATIŞ (STRONG SELL)")
+elif "🟢" in f+t+w+s and "🔴" not in f+t+w+s:
+    st.success("🚀 YEKUN QƏRAR: GÜCLÜ ALIŞ (STRONG BUY)")
+elif "🟢" in f+t+w+s and "🔴" in f+t+w+s:
+    st.warning("⚖️ YEKUN QƏRAR: QARIŞIQ SİQNALLAR (GÖZLƏ)")
+else:
+    st.info("💡 Analiz tamamlanmayıb...")
+    
