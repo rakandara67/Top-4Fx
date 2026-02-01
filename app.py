@@ -4,22 +4,25 @@ import streamlit as st
 st.set_page_config(page_title="Forex Focus Terminal", layout="wide")
 
 # Başlıq və Reset düyməsi
-col_t, col_r = st.columns([0.8, 0.2])
+col_t, col_r = st.columns([0.85, 0.15])
 with col_t:
     st.title("🏛️ Forex Analysis Terminal")
-with col_r:
+with col_reset if 'col_reset' in locals() else col_r:
     if st.button("🔄 Reset"):
         st.rerun()
 
-# --- 1. Checklist Paneli ---
+# --- 1. Checklist Paneli (4 ayrı bölmə) ---
 st.subheader("📝 Analiz Checklist")
-c1, c2, c3 = st.columns(3)
+c1, c2, c3, c4 = st.columns(4)
+
 with c1:
-    st.radio("Forecast Poll:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r1")
+    st.radio("1. Forecast Poll:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r1")
 with c2:
-    st.radio("Technical Summary:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r2")
+    st.radio("2. Technical:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r2")
 with c3:
-    st.radio("Sentiment/Weekly:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r3")
+    st.radio("3. Weekly:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r3")
+with c4:
+    st.radio("4. Sentiment:", ["Gözlənilir", "Long 🟢", "Short 🔴"], horizontal=True, key="r4")
 
 st.markdown("---")
 
@@ -48,16 +51,16 @@ with t3:
 
 st.write("---")
 
-# --- 3. Qalan Əsas Linklər ---
+# --- 3. Analiz Linkləri ---
 st.subheader("🔗 Əsas Analiz Mənbələri")
 l1, l2 = st.columns(2)
 
 with l1:
-    st.markdown("🎯 **Forecasts**")
+    st.markdown("🎯 **Forecasts (1 & 3)**")
     st.markdown("[Mitrade Forecast Poll](https://www.mitrade.com/en/financial-tools/Forecast)")
     st.markdown("[DailyForex Weekly](https://www.dailyforex.com/forex-technical-analysis/weekly-forex-forecast/page-1)")
 
 with l2:
-    st.markdown("👥 **Sentiment**")
+    st.markdown("👥 **Sentiment (4)**")
     st.markdown("[FXSSI Sentiment Ratio](https://fxssi.com/tools/current-ratio?filter=EURUSD)")
     
