@@ -11,7 +11,7 @@ with col_reset:
     if st.button("🔄 Reset"):
         st.rerun()
 
-# --- 1. Rəngsiz və Ayrılmış Checklist ---
+# --- 1. Rəngsiz və 4 Sütunlu Checklist ---
 st.subheader("📝 Analiz Checklist")
 c1, c2, c3, c4 = st.columns(4)
 
@@ -30,7 +30,7 @@ with c4:
 
 st.markdown("---")
 
-# --- 2. Technical Summary (Səliqəli Tablar) ---
+# --- 2. Technical Summary (Kateqoriyalı Tablar) ---
 st.subheader("📈 Market Technical View")
 tabs = st.tabs(["💱 Forex", "🌕 Commodities", "📊 Indices"])
 
@@ -54,15 +54,16 @@ with tabs[2]:
 
 st.markdown("---")
 
-# --- 3. Yalnız Əsas Analiz Linkləri ---
+# --- 3. Qalan Əsas Analiz Linkləri ---
 st.subheader("🔗 Essential Links")
 l1, l2 = st.columns(2)
 
 with l1:
-    st.markdown("[🎯 Mitrade Forecast Poll](https://www.mitrade.com/en/financial-tools/Forecast)")
-    st.markdown("[📅 DailyForex Weekly Forecast](https://www.dailyforex.com/forex-technical-analysis/weekly-forex-forecast/page-1)")
+    st.markdown("🎯 **Forecasts (1 & 3)**")
+    st.markdown("[Mitrade Forecast Poll](https://www.mitrade.com/en/financial-tools/Forecast)")
+    st.markdown("[DailyForex Weekly Forecast](https://www.dailyforex.com/forex-technical-analysis/weekly-forex-forecast/page-1)")
 
 with l2:
-    st.markdown("[👥 FXSSI Sentiment Ratio](https://fxssi.com/tools/current-ratio?filter=EURUSD)")
-    st.markdown("[📊 TradingView Chart](https://www.tradingview.com/chart/)")
+    st.markdown("👥 **Sentiment (4)**")
+    st.markdown("[FXSSI Sentiment Ratio](https://fxssi.com/tools/current-ratio?filter=EURUSD)")
     
