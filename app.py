@@ -11,10 +11,9 @@ with col_reset:
     if st.button("🔄 Reset"):
         st.rerun()
 
-# --- 1. Rəngsiz Checklist ---
+# --- 1. Analiz Checklist ---
 st.subheader("📝 Analiz Checklist")
 c1, c2, c3, c4 = st.columns(4)
-
 with c1:
     st.write("**Forecast Poll**")
     st.radio("F", ["Gözlə", "Long", "Short"], label_visibility="collapsed", horizontal=True, key="r1")
@@ -23,14 +22,38 @@ with c2:
     st.radio("T", ["Gözlə", "Long", "Short"], label_visibility="collapsed", horizontal=True, key="r2")
 with c3:
     st.write("**Weekly**")
-    st.radio("W", ["Gözlə", "Long", "Short"], label_visibility="collapsed", horizontal=True, key="r3")
+    st.radio("W", ["Gözlə", "Long", "Short"], horizontal=True, label_visibility="collapsed", key="r3")
 with c4:
     st.write("**Sentiment**")
-    st.radio("S", ["Gözlə", "Long", "Short"], label_visibility="collapsed", horizontal=True, key="r4")
+    st.radio("S", ["Gözlə", "Long", "Short"], horizontal=True, label_visibility="collapsed", key="r4")
 
 st.markdown("---")
 
-# --- 2. Technical Summary (Buton/Expander daxilində) ---
+# --- 2. Extra Confirmation & Korrelyasiya ---
+st.subheader("🛡️ Extra Confirmation")
+e1, e2 = st.columns(2)
+
+with e1:
+    st.info("⚠️ **Risk Filtri**")
+    st.checkbox("Bu gün mühüm xəbər (Qırmızı) yoxdur")
+    st.checkbox("DXY (Dollar İndeksi) istiqaməti dəstəkləyir")
+    st.checkbox("Giriş H4/D1 trendinə uyğundur")
+
+with e2:
+    with st.expander("🔗 Korrelyasiya Cədvəli (Bax və Yoxla)"):
+        st.write("""
+        | Cütlük | Birlikdə Hərəkət Edir (Eyni) | Əks Hərəkət Edir (Zidd) |
+        | :--- | :--- | :--- |
+        | **EUR/USD** | GBP/USD, AUD/USD, NZD/USD | USD/CHF, USD/JPY, USD/CAD |
+        | **GBP/USD** | EUR/USD, AUD/USD | USD/JPY, USD/CHF |
+        | **USD/CAD** | USD/JPY, USD/CHF | EUR/USD, AUD/USD, Oil (Neft) |
+        | **Gold (XAU)** | EUR/USD, Silver | USD (Dollar İndeksi) |
+        """)
+        st.caption("Məsələn: EURUSD alırsansa, USDCHF satılmalıdır.")
+
+st.markdown("---")
+
+# --- 3. Technical Summary (Açılan Buton) ---
 st.subheader("📈 Market Technical View")
 with st.expander("Texniki Cədvəlləri Göstər"):
     tabs = st.tabs(["Forex", "Metallar", "İndekslər"])
@@ -43,9 +66,8 @@ with st.expander("Texniki Cədvəlləri Göstər"):
 
 st.markdown("---")
 
-# --- 3. Linklər (Texniki sətir silindi) ---
+# --- 4. Linklər ---
 st.subheader("🔗 Essential Links")
-
 st.markdown("- **Forecast Poll:** [Mitrade Analysis](https://www.mitrade.com/en/financial-tools/Forecast)")
 st.markdown("- **Weekly:** [DailyForex Forecast](https://www.dailyforex.com/forex-technical-analysis/weekly-forex-forecast/page-1)")
 st.markdown("- **Sentiment:** [FXSSI Current Ratio](https://fxssi.com/tools/current-ratio?filter=EURUSD)")
