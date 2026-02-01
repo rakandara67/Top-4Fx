@@ -11,7 +11,7 @@ with col_reset:
     if st.button("🔄 Reset"):
         st.rerun()
 
-# --- 1. Rəngsiz Checklist (Sıralama ilə) ---
+# --- 1. Rəngsiz Checklist ---
 st.subheader("📝 Analiz Checklist")
 c1, c2, c3, c4 = st.columns(4)
 
@@ -43,10 +43,9 @@ with st.expander("Texniki Cədvəlləri Göstər"):
 
 st.markdown("---")
 
-# --- 3. Checklist Ardıcıllığına Uyğun Sadə Linklər ---
+# --- 3. Linklər (Texniki sətir silindi) ---
 st.subheader("🔗 Essential Links")
 
 st.markdown("- **Forecast Poll:** [Mitrade Analysis](https://www.mitrade.com/en/financial-tools/Forecast)")
-st.markdown("- **Technical:** (Yuxarıdakı bölməyə baxın)")
 st.markdown("- **Weekly:** [DailyForex Forecast](https://www.dailyforex.com/forex-technical-analysis/weekly-forex-forecast/page-1)")
 st.markdown("- **Sentiment:** [FXSSI Current Ratio](https://fxssi.com/tools/current-ratio?filter=EURUSD)")
